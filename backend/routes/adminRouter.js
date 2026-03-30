@@ -40,6 +40,357 @@ const { Tour } = require("../Model/tourModel");
 
 const adminRouter = express.Router();
 
+/**
+ * @swagger
+ * tags:
+ *   name: Admin
+ *   description: Admin operations and analytics
+ */
+
+/**
+ * @swagger
+ * /api/admin/dashboard:
+ *   get:
+ *     summary: Get dashboard analytics
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Analytics retrieved
+ * 
+ * /api/admin/customers:
+ *   get:
+ *     summary: Get all customers and their stats
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Customers list retrieved
+ * 
+ * /api/admin/queries:
+ *   get:
+ *     summary: Get all contact queries
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Queries retrieved
+ * 
+ * /api/admin/queries/{id}:
+ *   delete:
+ *     summary: Delete a contact query
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Query deleted
+ * 
+ * /api/admin/queries/{id}/reply:
+ *   post:
+ *     summary: Reply to a contact query
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Replied successfully
+ * 
+ * /api/admin/hotels/analytics:
+ *   get:
+ *     summary: Get admin hotel analytics
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Analytics retrieved
+ * 
+ * /api/admin/verifications:
+ *   get:
+ *     summary: Get verification queue
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Verifications retrieved
+ * 
+ * /api/admin/hotels/{id}/commission:
+ *   put:
+ *     summary: Update hotel commission
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Commission updated
+ * 
+ * /api/admin/hotels/{id}/status:
+ *   patch:
+ *     summary: Approve/reject hotel listing
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Status updated
+ * 
+ * /api/admin/tours/analytics:
+ *   get:
+ *     summary: Get admin tour analytics
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Tour analytics retrieved
+ * 
+ * /api/admin/tours/{id}/commission:
+ *   put:
+ *     summary: Update tour commission
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Commission updated
+ * 
+ * /api/admin/tours/{id}/status:
+ *   patch:
+ *     summary: Approve/reject tour listing
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Status updated
+ * 
+ * /api/admin/bookings:
+ *   get:
+ *     summary: Get all bookings
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Bookings retrieved
+ * 
+ * /api/admin/bookings/{bookingId}/cancel:
+ *   post:
+ *     summary: Cancel a booking (admin)
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: bookingId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Booking cancelled
+ * 
+ * /api/admin/tour-guides:
+ *   get:
+ *     summary: Get all tour guides
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Tour guides retrieved
+ * 
+ * /api/admin/users:
+ *   post:
+ *     summary: Create a new user
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       201:
+ *         description: User created
+ * 
+ * /api/admin/users/{userId}:
+ *   delete:
+ *     summary: Delete a user
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: User deleted
+ * 
+ * /api/admin/custom-tours:
+ *   get:
+ *     summary: Get all custom tour requests
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Custom tours retrieved
+ * 
+ * /api/admin/custom-tours/{id}/assign:
+ *   post:
+ *     summary: Assign a tour guide to custom tour
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Guide assigned
+ * 
+ * /api/admin/hotel-managers:
+ *   get:
+ *     summary: Get all hotel managers
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Hotel managers retrieved
+ * 
+ * /api/admin/employees:
+ *   get:
+ *     summary: Get all employees
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Employees retrieved
+ * 
+ * /api/admin/assign/hotel/{hotelId}:
+ *   patch:
+ *     summary: Assign hotel to employee
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: hotelId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Hotel assigned
+ * 
+ * /api/admin/assign/tour/{tourId}:
+ *   patch:
+ *     summary: Assign tour to employee
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: tourId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Tour assigned
+ * 
+ * /api/admin/reports/commissions/hotels:
+ *   get:
+ *     summary: Get hotel commission report
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Report retrieved
+ * 
+ * /api/admin/reports/commissions/tours:
+ *   get:
+ *     summary: Get tour commission report
+ *     tags: [Admin]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Report retrieved
+ */
+
 // Apply authentication and admin role to all routes
 adminRouter.use(authenticateUser);
 adminRouter.use(authenticateRole(["admin"]));

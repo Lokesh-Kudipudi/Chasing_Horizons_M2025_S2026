@@ -16,8 +16,6 @@ const { autoSignIn } = require("./middleware/autoSignIn");
 const { authenticateUser } = require("./middleware/authentication");
 const { getGeminiRecommendation, getRecommendation } = require("./Controller/geminiController");
 const { createContactForm, getUserQueries } = require("./Controller/ContactController");
-const swaggerJsdoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
 
 // Import routers
 const authRouter = require("./routes/authRouter");
@@ -35,34 +33,6 @@ const ownerRouter = require("./routes/ownerRouter");
 const employeeRouter = require("./routes/employeeRouter");
 
 const app = express();
-
-const swaggerOptions = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "FFSD API",
-      version: "1.0.0",
-      description: "API documentation",
-    },
-    servers: [
-      {
-        url: "http://localhost:5500",
-      },
-    ],
-    components: {
-      securitySchemes: {
-        bearerAuth: {
-          type: "http",
-          scheme: "bearer",
-          bearerFormat: "JWT",
-        },
-      },
-    },
-  },
-  apis: ["./routes/*.js"],
-};
-const swaggerSpec = swaggerJsdoc(swaggerOptions);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(
   cors({

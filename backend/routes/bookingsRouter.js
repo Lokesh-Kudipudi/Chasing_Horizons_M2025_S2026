@@ -8,6 +8,70 @@ const { authenticateUser, authenticateRole } = require("../middleware/authentica
 
 const bookingsRouter = express.Router();
 
+/**
+ * @swagger
+ * tags:
+ *   name: Bookings
+ *   description: Booking management endpoints
+ */
+
+/**
+ * @swagger
+ * /api/bookings:
+ *   get:
+ *     summary: Get user's bookings
+ *     tags: [Bookings]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of bookings retrieved successfully
+ * 
+ * /api/bookings/{bookingId}/cancel:
+ *   post:
+ *     summary: Cancel a booking
+ *     tags: [Bookings]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: bookingId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Booking cancelled successfully
+ * 
+ * /api/bookings/{bookingId}/status:
+ *   post:
+ *     summary: Update booking status
+ *     tags: [Bookings]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: bookingId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               status:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Booking status updated successfully
+ */
+
 // Apply authentication to all routes
 bookingsRouter.use(authenticateUser);
 
