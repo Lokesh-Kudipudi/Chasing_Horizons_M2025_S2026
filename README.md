@@ -1,55 +1,71 @@
-# Chasing Horizons - Travel & Tourism Management System
+## Project Title and Description
+### Chasing Horizons - Travel & Tourism Management System
+Chasing Horizons is a full-stack travel platform that connects travelers, hotel managers, tour guides, employees, owners, and admins in one role-based system. Users can discover tours and hotels, make bookings, request custom tours, and use an AI assistant for recommendations.
 
-Welcome to **Chasing Horizons**, your ultimate web-based platform for all things travel and tourism. Whether you're a traveler looking for your next adventure, a hotel manager looking to showcase your property, or a tour guide ready to share your local expertise, Chasing Horizons brings everyone together in one seamless experience.
+## Tech Stack
+- Frontend: React 19, Vite, Tailwind CSS, Redux Toolkit, React Router
+- Backend: Node.js, Express.js
+- Database: MongoDB (Mongoose)
+- Auth and Security: JWT, HTTP-only cookies, Helmet, CORS, express-rate-limit
+- Caching and Performance: Redis / Upstash Redis
+- File and Media: Multer, Cloudinary
+- AI: Google Gemini API
+- Testing: Jest, Supertest
+- Deployment and Containers: Docker, Docker Compose
 
-![Home Page Preview](frontend/src/assets/images/home.png) *(Note: Placeholder for an actual screenshot)*
+## Core Features
+- Role-based authentication and routing for traveler, admin, hotel manager, tour guide, employee, and owner flows
+- Tour and hotel discovery with search, filtering, and booking management
+- Custom tour request workflow with assignment and management dashboards
+- Admin analytics and operational dashboards for platform monitoring
+- AI chatbot and recommendation endpoints powered by Gemini
+- Production-ready API concerns including logging, rate limiting, and API docs
 
-## 🌟 Key Features
+## Quick Setup
+1. Clone the repository and move into the project root.
+2. Create a `.env` file in the project root (used by Docker) and add backend environment variables.
+3. Start with Docker Compose:
+   ```bash
+   docker compose up --build
+   ```
+4. Access the apps:
+- Frontend: `http://localhost`
+- Backend: `http://localhost:5500`
 
-### For Travelers
-*   **Search & Discover**: Easily find tours and hotels that match your criteria.
-*   **Book with Confidence**: Make real-time bookings with instant availability checks.
-*   **Customize Your Journey**: Request personalized tour packages tailored specifically to your needs.
-*   **AI Travel Assistant**: Get personalized recommendations and answers to your travel questions via our integrated AI chatbot.
-*   **Manage Bookings**: Keep track of all your reservations in a dedicated user dashboard.
+### Run Without Docker
+1. Start MongoDB locally or use MongoDB Atlas.
+2. In `backend/`, create a `.env` file with required variables:
+   ```env
+   PORT=5500
+   MONGO_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret
+   FRONTEND_URL=http://localhost:5173
+   GEMINI_API_KEY=your_gemini_api_key
+   CLOUDINARY_CLOUD_NAME=your_cloud_name
+   CLOUDINARY_API_KEY=your_cloudinary_api_key
+   CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+   EMAIL_USER=your_email
+   EMAIL_PASS=your_email_password_or_app_password
+   REDIS_URL=your_redis_url_optional
+   ```
+3. Install and run backend:
+   ```bash
+   cd backend
+   npm install
+   npm run dev
+   ```
+4. Open a new terminal, install and run frontend:
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+5. Access the apps:
+- Frontend: `http://localhost:5173`
+- Backend: `http://localhost:5500`
 
-### For Service Providers (Hotel Managers & Tour Guides)
-*   **Dedicated Dashboards**: Access comprehensive analytics and management tools tailored to your role.
-*   **Manage Offerings**: Easily list, update, and manage your hotel rooms or tour packages.
-*   **Handle Bookings**: View and manage reservations made by travelers.
-
-### For Administrators
-*   **Platform Oversight**: Monitor platform activity, user statistics, and overall revenue.
-*   **User Management**: Approve and manage accounts for hotel managers and tour guides.
-*   **Content Moderation**: Review and approve newly created tour packages to maintain quality.
-
-## 🚀 Getting Started (General Users)
-
-The application is accessible online at `[Insert Live URL Here]`. To start using Chasing Horizons:
-
-1.  Navigate to the homepage.
-2.  Click on **Sign Up** to create an account as a Traveler, Hotel Manager, or Tour Guide.
-3.  Explore the available tours and hotels, or access your respective dashboard.
-4.  Need help? Look for the AI Chatbot icon to ask questions or get recommendations!
-
-## 💻 Tech Stack Overview
-
-Chasing Horizons is built on a robust, modern technology stack:
-
-*   **Frontend**: React, Vite, Tailwind CSS, Redux Toolkit
-*   **Backend**: Node.js, Express.js
-*   **Database**: MongoDB
-*   **AI Engine**: Google Gemini API
-
-## 📁 Repository Structure
-
-For developers looking to contribute or understand the codebase, the project is divided into two main areas:
-
-*   **[`/frontend`](./frontend/)**: Contains the client-side user interface.
-    *   *See the [Frontend Technical README](./frontend/README.md) for detailed setup and architectural information.*
-*   **[`/backend`](./backend/)**: Contains the server-side logic and API.
-    *   *See the [Backend Technical README](./backend/README.md) for detailed setup and architectural information.*
-
-## 📜 License
-
-This project is licensed under the [Insert License Name Here] License. See the `LICENSE` file for details.
+## screenshots
+![Chasing Horizons Screenshot 1](./screenshots/chasing-horizon-1.png)
+![Chasing Horizons Screenshot 2](./screenshots/chasing-horizon-2.png)
+![Chasing Horizons Screenshot 3](./screenshots/chasing-horizon-3.png)
+![Chasing Horizons Screenshot 4](./screenshots/chasing-horizon-4.png)

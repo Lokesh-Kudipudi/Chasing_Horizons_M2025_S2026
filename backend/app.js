@@ -16,8 +16,6 @@ const { autoSignIn } = require("./middleware/autoSignIn");
 const { authenticateUser } = require("./middleware/authentication");
 const { getGeminiRecommendation, getRecommendation } = require("./Controller/geminiController");
 const { createContactForm, getUserQueries } = require("./Controller/ContactController");
-
-// Import routers
 const authRouter = require("./routes/authRouter");
 const usersRouter = require("./routes/usersRouter");
 const toursRouter = require("./routes/toursRouter");
@@ -46,7 +44,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 
-// Logging setup
+
 const logDirectory = path.join(__dirname, "log");
 if (!fs.existsSync(logDirectory)) {
   fs.mkdirSync(logDirectory, { recursive: true });
@@ -67,7 +65,7 @@ app.use(morgan("combined", { stream: accessLogStream }));
 app.use(morgan("dev"));
 app.use(autoSignIn);
 
-// Rate Limiting
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 500, // limit each IP to 100 requests per windowMs
@@ -77,13 +75,13 @@ const limiter = rateLimit({
   },
 });
 
-// Apply rate limiting to all requests
+
 app.use(limiter);
 
 // Swagger API Docs
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// API Routes - All under /api prefix
+
 app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/tours", toursRouter);
@@ -95,10 +93,10 @@ app.use("/api/guide", guideRouter);
 app.use("/api/favourites", authenticateUser, favouriteRouter);
 app.use("/api/custom-tours", authenticateUser, customTourRouter);
 app.use("/api/reviews", reviewRouter);
-app.use("/api/owner", ownerRouter); // platform‑owner analytics endpoints
+app.use("/api/owner", ownerRouter); 
 app.use("/api/employee", employeeRouter);
 
-// Additional API routes
+
 app.post("/api/contact", async (req, res) => {
   const { name, email, phone, reason, query } = req.body;
   await createContactForm({
@@ -129,7 +127,7 @@ app.post("/api/recommendation", async (req, res) => {
   res.json(response);
 });
 
-// Database connection
+
 async function connectMongoose() {
   try {
     await mongoose.connect(process.env.MONGO_URI);

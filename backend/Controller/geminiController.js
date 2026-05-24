@@ -2,11 +2,7 @@ const { Tour } = require("../Model/tourModel");
 const { Hotel } = require("../Model/hotelModel");
 const { chatGemini } = require("../api/gemini");
 
-/**
- * Chatbot handler — sends user message + chat history to Gemini,
- * along with the current tours & hotels catalogue.
- * Returns the parsed XML-tagged response.
- */
+
 async function getGeminiRecommendation(userInput, history) {
   try {
     const [tours, hotels] = await Promise.all([
@@ -16,7 +12,6 @@ async function getGeminiRecommendation(userInput, history) {
 
     const rawResponse = await chatGemini(userInput, history, tours, hotels);
 
-    // Parse XML-style tags from Gemini response
     const extract = (tag) => {
       const regex = new RegExp(`<${tag}>([\\s\\S]*?)</${tag}>`);
       const match = rawResponse.match(regex);
@@ -29,7 +24,6 @@ async function getGeminiRecommendation(userInput, history) {
     const userIntent = extract("user_intent");
     const redirect = extract("redirect");
 
-    // Try to parse JSON arrays for hotels/tours recommendations
     let parsedHotels = [];
     let parsedTours = [];
     try {
@@ -64,13 +58,10 @@ async function getGeminiRecommendation(userInput, history) {
   }
 }
 
-/**
- * Recommendation handler — returns top tours and hotels.
- * Can optionally use preferences / userData for filtering in the future.
- */
+
 async function getRecommendation(preferences, userData) {
   try {
-    const { tourIds, hotelIds } = preferences || {}; // Assuming preferences might hold these IDs or they come directly in body
+    const { tourIds, hotelIds } = preferences || {}; 
 
     let tours = [];
     let hotels = [];

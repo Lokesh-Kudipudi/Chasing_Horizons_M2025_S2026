@@ -55,13 +55,11 @@ async function getUserAnalytics(userId) {
 }
 
 async function getAdminHomepageAnalytics() {
-  // Total Bookings Revenue Customers and Hotels
   try {
     const bookings = await Booking.find({}).lean();
     const customers = await User.find({ role: "user" }).lean();
     const hotels = await Hotel.find({}).lean();
 
-    // Filter out cancelled bookings (status is "cancel")
     const activeBookings = bookings.filter(
       (b) => b.bookingDetails?.status !== "cancel"
     );
@@ -102,7 +100,6 @@ async function getAdminHomepageAnalytics() {
       { $limit: 5 },
     ]);
 
-    // Then in Node.js, loop and populate manually:
     const populatedResults = await Promise.all(
       rawResults.map(async (entry) => {
         let item;
@@ -122,16 +119,13 @@ async function getAdminHomepageAnalytics() {
       })
     );
 
-    // Get The Top Bookings according to frequency
 
-    // Get Recent Bookings
     const recentBookings = await Booking.find({})
       .sort({ createdAt: -1 })
       .limit(5)
       .populate("userId", "fullName email")
       .lean();
 
-    // Monthly Bookings for Chart
     const monthlyBookings = await Booking.aggregate([
       {
         $match: {
@@ -147,7 +141,6 @@ async function getAdminHomepageAnalytics() {
       { $sort: { _id: 1 } },
     ]);
 
-    // Revenue Splits
     const totalHotelRevenue = activeBookings
       .filter(b => b.type === "Hotel")
       .reduce((acc, b) => acc + (b.bookingDetails?.price || 0), 0);
@@ -156,7 +149,6 @@ async function getAdminHomepageAnalytics() {
       .filter(b => b.type === "Tour")
       .reduce((acc, b) => acc + (b.bookingDetails?.price || 0), 0);
 
-    // Get Top 5 Hotels by Revenue
     const topHotels = await Booking.aggregate([
       { $match: { type: "Hotel", "bookingDetails.status": { $nin: ["cancel", "cancelled", "Cancel", "Cancelled"] } } },
       {
@@ -180,7 +172,6 @@ async function getAdminHomepageAnalytics() {
       { $project: { _id: 1, totalRevenue: 1, title: "$hotel.title" } }
     ]);
 
-    // Get Top 5 Tours by Revenue
     const topTours = await Booking.aggregate([
       { $match: { type: "Tour", "bookingDetails.status": { $nin: ["cancel", "cancelled", "Cancel", "Cancelled"] } } },
       {
@@ -234,7 +225,6 @@ async function getAdminPackagesAnalytics() {
       .select("title duration rating startLocation price commissionRate _id mainImage status assignedEmployeeId")
       .lean();
 
-    // Use Aggregate and find the total bookings for each package
     const bookings = await Booking.aggregate([
       {
         $match: {
@@ -315,7 +305,6 @@ async function getHotelMangerHomePageAnalytics(hotelId) {
       };
     }
 
-    // Exclude cancelled bookings from calculations
     const activeBookings = bookings.filter(b => {
       const s = b.bookingDetails?.status?.toLowerCase();
       return s !== "cancel" && s !== "cancelled";
@@ -327,12 +316,10 @@ async function getHotelMangerHomePageAnalytics(hotelId) {
       0
     );
 
-    // Recent Bookings (Last 5)
     const recentBookings = [...bookings]
       .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       .slice(0, 5);
 
-    // Monthly Bookings for Chart (excluding cancelled)
     const monthlyBookings = await Booking.aggregate([
       {
         $match: {
@@ -356,7 +343,6 @@ async function getHotelMangerHomePageAnalytics(hotelId) {
       return acc + (b.commissionAmount || 0);
     }, 0);
 
-    // Booking Status Counts
     const bookingStatusCounts = bookings.reduce(
       (acc, booking) => {
         const status =
@@ -393,7 +379,6 @@ async function getAdminHotelAnalytics() {
   try {
     const hotels = await Hotel.find({}).lean();
 
-    // Aggregate bookings for hotels
     const bookings = await Booking.aggregate([
       {
         $match: {
@@ -434,7 +419,6 @@ async function getAdminHotelAnalytics() {
       };
     });
 
-    // Top 5 Hotels by Revenue
     const topHotels = [...hotelAnalytics]
       .sort((a, b) => b.totalRevenue - a.totalRevenue)
       .slice(0, 5);
@@ -457,11 +441,9 @@ async function getAdminHotelAnalytics() {
 }
 async function getTourGuideAnalytics(guideId) {
   try {
-    // 1. Get all tours by this guide
     const tours = await Tour.find({ tourGuideId: guideId }).lean();
     const tourIds = tours.map((t) => t._id);
 
-    // 2. Get all bookings for these tours
     const bookings = await Booking.find({
       itemId: { $in: tourIds },
       type: "Tour",
@@ -473,7 +455,6 @@ async function getTourGuideAnalytics(guideId) {
     ).length;
 
     let totalRevenue = bookings.reduce((acc, b) => {
-      // Assuming 'confirmed' means payment received/revenue valid
       if (b.bookingDetails?.status === "confirmed") {
         return acc + (b.bookingDetails?.price || 0);
       }
@@ -487,7 +468,6 @@ async function getTourGuideAnalytics(guideId) {
       return acc;
     }, 0);
 
-    // 3. Get Accepted Custom Tours
     const acceptedCustomToursList = await CustomTourRequest.find({
       assignedTourGuide: guideId,
       status: "accepted",
@@ -496,7 +476,6 @@ async function getTourGuideAnalytics(guideId) {
     const acceptedCustomTours = acceptedCustomToursList.length;
 
     const customTourRevenue = acceptedCustomToursList.reduce((acc, tour) => {
-      // Find the quote provided by this guide
       const winningQuote = tour.quotes.find(q => q.tourGuideId.toString() === guideId.toString());
       return acc + (winningQuote ? (winningQuote.amount || 0) : 0);
     }, 0);

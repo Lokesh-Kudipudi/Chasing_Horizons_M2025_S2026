@@ -9,7 +9,6 @@ const {
 const {
   makeTourBooking,
 } = require("../Controller/bookingController");
-// FIXED (Gap 1): added authenticateUser to the import — it was missing entirely
 const { authenticateUser, authenticateRole } = require("../middleware/authentication");
 const { Tour } = require("../Model/tourModel");
 const upload = require("../middleware/upload");
@@ -222,8 +221,6 @@ toursRouter.route("/destinations").get(async (req, res) => {
   res.json(result);
 });
 
-// FIXED (Gap 1): authenticateUser + authenticateRole added.
-// The old inline `if (!req.user)` guard is removed — middleware handles it.
 toursRouter.route("/book").post(
   authenticateUser,
   authenticateRole(["user"]),

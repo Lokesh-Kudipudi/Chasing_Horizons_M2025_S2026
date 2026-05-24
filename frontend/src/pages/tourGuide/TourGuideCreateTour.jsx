@@ -202,12 +202,6 @@ export default function TourGuideCreateTour() {
     formDataToSend.append("destinations", JSON.stringify(formData.destinations)); // destination images will be merged in backend if files exist
     formDataToSend.append("bookingDetails", JSON.stringify(formData.bookingDetails));
 
-    // Append Main Image (if new file selected, otherwise backend keeps old logic if we don't send "mainImage" field? 
-    // Wait, if we send "mainImage" as text field (URL), and file is undef, backend keeps URL.
-    // If we have file, we append file.
-    // My backend logic checks for file first. If not found, it uses req.body.mainImage?
-    // Let's check logic: "if (mainImageFile) tourData.mainImage = path;"
-    // So if no file, it uses whatever is in req.body. Perfect.
     if (mainImageFile) {
       formDataToSend.append("mainImage", mainImageFile);
     } else {

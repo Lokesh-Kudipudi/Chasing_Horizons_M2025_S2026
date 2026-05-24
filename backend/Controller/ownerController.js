@@ -21,11 +21,10 @@ async function addHotelIdToOwner(ownerId, hotelId) {
   try {
     const hotel = await Hotel.findByIdAndUpdate(hotelId, { ownerId }, { new: true }).lean();
     if (hotel) {
-        // Return object structure compatible with previous Owner model
         return {
-            _id: hotel._id, // Using hotel ID as the ID reference
+            _id: hotel._id, 
             ownerId: hotel.ownerId,
-            hotelId: hotel._id // Explicitly populate hotelId field
+            hotelId: hotel._id
         };
     }
     return null;

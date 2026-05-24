@@ -11,7 +11,6 @@ const parsePrice = (priceVal) => {
   return parseFloat(clean) || 0;
 };
 
-// Get all tour guides
 async function getAllTourGuides(req, res) {
   try {
     const tourGuides = await User.find({ role: "tourGuide" })
@@ -77,7 +76,6 @@ async function getAllTourGuides(req, res) {
   }
 }
 
-// Get all hotel managers
 async function getAllHotelManagers(req, res) {
   try {
     const hotelManagers = await User.find({ role: "hotelManager" })
@@ -143,7 +141,7 @@ async function getAllHotelManagers(req, res) {
   }
 }
 
-// Get all employees
+
 async function getAllEmployees(req, res) {
   try {
     const employees = await User.find({ role: "employee" })
@@ -152,17 +150,16 @@ async function getAllEmployees(req, res) {
 
     const employeesWithAssignments = await Promise.all(
       employees.map(async (emp) => {
-        // Find all assigned hotels
+
         const hotels = await Hotel.find({ assignedEmployeeId: emp._id }).select("title _id").lean();
 
-        // Find all assigned tours
+
         const tours = await Tour.find({ assignedEmployeeId: emp._id }).select("title _id").lean();
 
         const assignments = [];
         let totalHotelRevenue = 0;
         let totalTourRevenue = 0;
 
-        // Process Hotel Revenues
         for (const hotel of hotels) {
           const hotelBookings = await Booking.find({
             itemId: { $in: [hotel._id, hotel._id.toString()] },
@@ -180,7 +177,6 @@ async function getAllEmployees(req, res) {
           });
         }
 
-        // Process Tour Revenues
         for (const tour of tours) {
           const tourBookings = await Booking.find({
             itemId: { $in: [tour._id, tour._id.toString()] },
@@ -224,12 +220,10 @@ async function getAllEmployees(req, res) {
   }
 }
 
-// Create new user (tour guide or hotel manager)
 async function createUser(req, res) {
   try {
     const { fullName, email, password, role, phone, address } = req.body;
 
-    // Validate required fields
     if (!fullName || !email || !password || !role) {
       return res.status(400).json({
         status: "error",
@@ -237,7 +231,6 @@ async function createUser(req, res) {
       });
     }
 
-    // Validate role
     if (!["tourGuide", "hotelManager", "employee"].includes(role)) {
       return res.status(400).json({
         status: "error",
@@ -245,7 +238,6 @@ async function createUser(req, res) {
       });
     }
 
-    // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(409).json({
@@ -254,11 +246,9 @@ async function createUser(req, res) {
       });
     }
 
-    // Hash password
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
 
-    // Create new user
     const newUser = new User({
       fullName,
       email,
@@ -270,7 +260,6 @@ async function createUser(req, res) {
 
     await newUser.save();
 
-    // Return user without sensitive data
     const userResponse = newUser.toObject();
     delete userResponse.passwordHash;
 
@@ -288,13 +277,11 @@ async function createUser(req, res) {
   }
 }
 
-// Update user role
 async function updateUserRole(req, res) {
   try {
     const { userId } = req.params;
     const { role } = req.body;
 
-    // Validate role
     if (!["tourGuide", "hotelManager", "user", "employee"].includes(role)) {
       return res.status(400).json({
         status: "error",
@@ -329,7 +316,6 @@ async function updateUserRole(req, res) {
   }
 }
 
-// Delete user
 async function deleteUser(req, res) {
   try {
     const { userId } = req.params;

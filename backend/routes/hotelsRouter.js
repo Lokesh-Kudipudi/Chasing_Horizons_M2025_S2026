@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const { Hotel } = require("../Model/hotelModel");
-// FIXED (Gaps 2, 3, 4): added authenticateUser to the import — it was missing entirely
 const { authenticateUser, authenticateRole } = require("../middleware/authentication");
 const {
   getAllHotels,
@@ -110,7 +109,6 @@ async function resolveManagerHotel(req) {
 hotelsRouter
   .route("/")
   .post(authenticateUser, authenticateRole(["admin", "hotelManager"]), async (req, res) => {
-    // Removed: redundant inline `if (!req.user)` — middleware now guarantees this
     const hotelPayload = { ...req.body };
     if (req.user.role === "hotelManager") {
       hotelPayload.status = "pending";
@@ -209,8 +207,6 @@ hotelsRouter.route("/").get(async (req, res) => {
  *       401:
  *         description: Unauthorized
  */
-// FIXED (Gap 2): authenticateUser + authenticateRole added.
-// Removed: redundant inline `if (!req.user)` guard.
 hotelsRouter
   .route("/my-hotel")
   .get(
@@ -284,8 +280,6 @@ hotelsRouter
  *       404:
  *         description: Hotel not found
  */
-// FIXED (Gap 3): authenticateUser + authenticateRole added BEFORE upload.single().
-// Removed: redundant inline `if (!req.user)` guard.
 hotelsRouter
   .route("/room-types")
   .post(
@@ -378,7 +372,6 @@ hotelsRouter
  *       404:
  *         description: Hotel not found
  */
-// Removed: redundant inline `if (!req.user)` guard. Auth is enforced by middleware.
 hotelsRouter
   .route("/room-types/:roomId")
   .put(
@@ -458,7 +451,6 @@ hotelsRouter
  *       404:
  *         description: Hotel not found
  */
-// Removed: redundant inline `if (!req.user)` guard.
 hotelsRouter
   .route("/room-types/:roomId")
   .delete(
@@ -534,7 +526,6 @@ hotelsRouter
  *       404:
  *         description: Hotel not found
  */
-// Removed: redundant inline `if (!req.user)` guard.
 hotelsRouter.route("/rooms").post(
   authenticateUser,
   authenticateRole(["hotelManager", "admin"]),
@@ -575,7 +566,6 @@ hotelsRouter.route("/rooms").post(
  *       404:
  *         description: Hotel not found
  */
-// Removed: redundant inline `if (!req.user)` guard.
 hotelsRouter.route("/rooms").get(
   authenticateUser,
   authenticateRole(["hotelManager", "admin"]),
@@ -630,7 +620,6 @@ hotelsRouter.route("/rooms").get(
  *       401:
  *         description: Unauthorized
  */
-// Removed: redundant inline `if (!req.user)` guard.
 hotelsRouter.route("/rooms/:id").put(
   authenticateUser,
   authenticateRole(["hotelManager", "admin"]),
@@ -667,7 +656,6 @@ hotelsRouter.route("/rooms/:id").put(
  *       401:
  *         description: Unauthorized
  */
-// Removed: redundant inline `if (!req.user)` guard.
 hotelsRouter.route("/rooms/:id").delete(
   authenticateUser,
   authenticateRole(["hotelManager", "admin"]),
@@ -715,7 +703,6 @@ hotelsRouter.route("/rooms/:id").delete(
  *       401:
  *         description: Unauthorized
  */
-// Removed: redundant inline `if (!req.user)` guard.
 hotelsRouter.route("/bookings/:bookingId/assign-room").post(
   authenticateUser,
   authenticateRole(["hotelManager", "admin"]),
@@ -838,8 +825,6 @@ hotelsRouter.route("/:id").get(async (req, res) => {
  *       401:
  *         description: Unauthorized
  */
-// FIXED (Gap 4): authenticateUser + authenticateRole added.
-// Removed: redundant inline `if (!req.user)` guard.
 hotelsRouter.route("/:id/book").post(
   authenticateUser,
   authenticateRole(["user"]),

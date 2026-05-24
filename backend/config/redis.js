@@ -1,12 +1,12 @@
 const { Redis } = require("@upstash/redis");
 
-// Initialize Upstash Redis client
+
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL,
   token: process.env.UPSTASH_REDIS_REST_TOKEN,
 });
 
-// Test connection
+
 redis
   .ping()
   .then(() => {
@@ -16,7 +16,7 @@ redis
     console.error("Redis connection error:", error);
   });
 
-// Store OTP with expiration (5 minutes = 300 seconds)
+
 const storeOTP = async (email, otp, expirationMinutes = 5) => {
   try {
     const key = `otp:${email}`;
@@ -30,7 +30,6 @@ const storeOTP = async (email, otp, expirationMinutes = 5) => {
   }
 };
 
-// Get OTP from Redis
 const getOTP = async (email) => {
   try {
     const key = `otp:${email}`;
@@ -43,7 +42,6 @@ const getOTP = async (email) => {
   }
 };
 
-// Delete OTP (after verification - one-time use)
 const deleteOTP = async (email) => {
   try {
     const key = `otp:${email}`;

@@ -1,4 +1,3 @@
-// scripts/responseTime.js
 const BASE_URL = 'http://localhost:5500';
 const CONCURRENT_USERS = 50; // Number of simultaneous requests
 

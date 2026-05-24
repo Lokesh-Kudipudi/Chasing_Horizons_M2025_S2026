@@ -28,7 +28,6 @@ async function getAllToursGemini() {
 
 async function getAllTours() {
   try {
-    // 1. Check Redis Cache
     const cacheKey = "cache:tours:all";
     let cachedData = null;
     try {
@@ -45,10 +44,8 @@ async function getAllTours() {
       };
     }
 
-    // 2. Fetch from DB if not cached
     const tours = await Tour.find().lean();
     
-    // 3. Cache the result (Expire in 1 hour)
     try {
       await redis.set(cacheKey, tours, { ex: 3600 });
     } catch (redisError) {
@@ -94,11 +91,9 @@ async function getTourById(tourId) {
       };
     }
 
-    // Calculate available slots for each date
     if (tour.bookingDetails && tour.bookingDetails.length > 0) {
       const updatedBookingDetails = await Promise.all(
         tour.bookingDetails.map(async (detail) => {
-          // Count bookings for this tour and date
           const bookings = await Booking.find({
             itemId: tourId,
             type: "Tour",
@@ -110,7 +105,7 @@ async function getTourById(tourId) {
             return sum + (Number(booking.bookingDetails.numGuests) || 1);
           }, 0);
 
-          const maxPeople = tour.maxPeople || 20; // Default fallback
+          const maxPeople = tour.maxPeople || 20; 
           const availableSlots = Math.max(0, maxPeople - bookedCount);
 
           return {

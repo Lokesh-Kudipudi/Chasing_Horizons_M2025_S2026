@@ -3,7 +3,6 @@ const { Hotel } = require("../Model/hotelModel");
 const { Tour } = require("../Model/tourModel");
 const mongoose = require("mongoose");
 
-// Get commission report for all hotels
 async function getHotelCommissionReport(req, res) {
     try {
         const report = await Booking.aggregate([
@@ -55,7 +54,6 @@ async function getHotelCommissionReport(req, res) {
     }
 }
 
-// Get commission report for all tours
 async function getTourCommissionReport(req, res) {
     try {
         const report = await Booking.aggregate([

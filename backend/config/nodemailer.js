@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-// Configure Nodemailer transporter with SSL/TLS configuration
+
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Verify connection
+
 transporter.verify((error, success) => {
   if (error) {
     console.log("Email transporter error:", error.message);
@@ -24,7 +24,7 @@ transporter.verify((error, success) => {
   }
 });
 
-// Send OTP Email
+
 const sendOTPEmail = async (email, otp) => {
   try {
     const mailOptions = {
@@ -77,7 +77,7 @@ const sendOTPEmail = async (email, otp) => {
     };
 
     const info = await transporter.sendMail(mailOptions);
-    console.log(`✅ EMAIL SENT SUCCESSFULLY to ${email}`);
+    console.log(`EMAIL SENT SUCCESSFULLY to ${email}`);
     console.log(`   OTP: ${otp}`);
     console.log(`   Message ID: ${info.messageId}`);
     return { success: true, message: "OTP sent to your email successfully" };
@@ -88,7 +88,7 @@ const sendOTPEmail = async (email, otp) => {
     console.error(`To: ${email}`);
     console.error(`OTP: ${otp}\n`);
     
-    // Return actual error, not fake success
+
     return { 
       success: false, 
       message: `Email failed: ${error.message}. Check your Gmail credentials or use console OTP: ${otp}` 

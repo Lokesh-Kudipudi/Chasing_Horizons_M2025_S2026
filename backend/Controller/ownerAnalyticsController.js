@@ -4,7 +4,6 @@ const { Booking } = require("../Model/bookingModel");
 const { User } = require("../Model/userModel");
 const { redis } = require("../config/redis");
 
-// GET /api/owner/analytics/overview
 async function getOverviewAnalytics(req, res) {
   try {
     const cacheKey = "owner_analytics:overview";
@@ -37,7 +36,6 @@ async function getOverviewAnalytics(req, res) {
     const totalCustomers = customers.length;
     const totalHotels = hotels.length;
 
-    // Monthly bookings for chart
     const monthlyBookings = await Booking.aggregate([
       {
         $match: {
@@ -54,7 +52,6 @@ async function getOverviewAnalytics(req, res) {
       { $sort: { _id: 1 } },
     ]);
 
-    // Recent bookings
     const recentBookings = await Booking.find({})
       .sort({ createdAt: -1 })
       .limit(5)
@@ -83,7 +80,6 @@ async function getOverviewAnalytics(req, res) {
   }
 }
 
-// GET /api/owner/analytics/hotels
 async function getHotelAnalytics(req, res) {
   try {
     const cacheKey = "owner_analytics:hotels";
@@ -161,7 +157,6 @@ async function getHotelAnalytics(req, res) {
   }
 }
 
-// GET /api/owner/analytics/tours
 async function getTourAnalytics(req, res) {
   try {
     const cacheKey = "owner_analytics:tours";
@@ -239,7 +234,6 @@ async function getTourAnalytics(req, res) {
   }
 }
 
-// GET /api/owner/analytics/performance
 async function getPerformanceAnalytics(req, res) {
   try {
     const cacheKey = "owner_analytics:performance";
@@ -289,7 +283,6 @@ async function getPerformanceAnalytics(req, res) {
   }
 }
 
-// GET /api/owner/analytics/bookings
 async function getAllBookings(req, res) {
   try {
     const cacheKey = "owner_analytics:bookings";
@@ -318,7 +311,6 @@ async function getAllBookings(req, res) {
   }
 }
 
-// GET /api/owner/analytics/people
 async function getPeopleAnalytics(req, res) {
   try {
     const cacheKey = "owner_analytics:people";

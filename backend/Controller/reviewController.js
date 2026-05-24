@@ -4,7 +4,6 @@ const Hotel = require("../Model/hotelModel");
 
 exports.createReview = async (req, res) => {
   try {
-    // userId came from authenticateUser middleware
     const userId = req.user.id || req.user._id; 
     const { itemId, itemType, rating, review } = req.body;
 
@@ -23,10 +22,6 @@ exports.createReview = async (req, res) => {
       review,
     });
     
-    // Optional: Update average rating on the Tour/Hotel model
-    // This is a "nice to have" but ensures consistency.
-    // For now we just save the review.
-
     res.status(201).json({
       status: "success",
       data: newReview,

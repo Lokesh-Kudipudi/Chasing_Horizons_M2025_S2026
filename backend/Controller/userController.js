@@ -2,7 +2,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { User } = require("../Model/userModel");
 const { getUserBookings } = require("./bookingController");
-// const { storeOTP, getOTP, deleteOTP } = require("../config/redis");
 const { sendOTPEmail } = require("../config/nodemailer");
 const { Booking } = require("../Model/bookingModel");
 
@@ -10,7 +9,6 @@ async function updatePassword(req, res) {
   const { currentPassword, newPassword, confirmPassword } = req.body;
 
   try {
-    // Validation checks
     if (!currentPassword || !newPassword || !confirmPassword) {
       return res.status(400).json({
         status: "fail",
@@ -25,7 +23,6 @@ async function updatePassword(req, res) {
       });
     }
 
-    // Password strength validation
     if (newPassword.length < 8) {
       return res.status(400).json({
         status: "fail",
@@ -61,7 +58,6 @@ async function updatePassword(req, res) {
       });
     }
 
-    // Find user
     const user = await User.findById(req.user._id);
     if (!user) {
       return res.status(404).json({
@@ -70,7 +66,6 @@ async function updatePassword(req, res) {
       });
     }
 
-    // Verify current password
     const isPasswordCorrect = await bcrypt.compare(
       currentPassword,
       user.passwordHash
@@ -82,7 +77,6 @@ async function updatePassword(req, res) {
       });
     }
 
-    // Check if new password is same as current password
     if (currentPassword === newPassword) {
       return res.status(400).json({
         status: "fail",
@@ -90,7 +84,6 @@ async function updatePassword(req, res) {
       });
     }
 
-    // Hash new password
     const hashedPassword = await bcrypt.hash(newPassword, 12);
     user.passwordHash = hashedPassword;
     await user.save();
@@ -107,7 +100,6 @@ async function updatePassword(req, res) {
   }
 }
 
-// Helper to generate JWT
 function generateToken(user) {
   return jwt.sign(
     {
@@ -125,7 +117,6 @@ function generateToken(user) {
   );
 }
 
-// Sign up regular user
 async function signUpUser(req, res) {
   const { fullName, email, password, phone, address } = req.body;
   try {
@@ -150,13 +141,13 @@ async function signUpUser(req, res) {
 
     const token = generateToken(user);
     res.cookie("token", token, {
-      httpOnly: true, // Prevents JS access on client-side
-      secure: true, // Set to true if using HTTPS
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      httpOnly: true, 
+      secure: true, 
+      maxAge: 7 * 24 * 60 * 60 * 1000,
       sameSite: "None",
     });
 
-    req.user = user; // Attach user to request for further use
+    req.user = user;
 
     res.status(201).json({
       status: "success",
@@ -178,7 +169,6 @@ async function signUpUser(req, res) {
   }
 }
 
-// Sign up hotel manager
 async function signUphotelManager(req, res) {
   const { fullName, email, password, phone, address } = req.body;
   try {
@@ -203,13 +193,13 @@ async function signUphotelManager(req, res) {
     const token = generateToken(user);
 
     res.cookie("token", token, {
-      httpOnly: true, // Prevents JS access on client-side
-      secure: true, // Set to true if using HTTPS
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      httpOnly: true, 
+      secure: true, 
+      maxAge: 7 * 24 * 60 * 60 * 1000, 
       sameSite: "None",
     });
 
-    req.user = user; // Attach user to request for further use
+    req.user = user; 
 
     res.status(201).json({
       status: "success",
@@ -230,7 +220,6 @@ async function signUphotelManager(req, res) {
   }
 }
 
-// Sign up tour guide
 async function signUpTourGuide(req, res) {
   const { fullName, email, password, phone, address } = req.body;
   try {
@@ -255,13 +244,13 @@ async function signUpTourGuide(req, res) {
     const token = generateToken(user);
 
     res.cookie("token", token, {
-      httpOnly: true, // Prevents JS access on client-side
-      secure: true, // Set to true if using HTTPS
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      httpOnly: true,
+      secure: true, 
+      maxAge: 7 * 24 * 60 * 60 * 1000, 
       sameSite: "None",
     });
 
-    req.user = user; // Attach user to request for further use
+    req.user = user;
 
     res.status(201).json({
       status: "success",
@@ -282,7 +271,6 @@ async function signUpTourGuide(req, res) {
   }
 }
 
-// Sign up owner (platform-level read-only role)
 async function signUpOwner(req, res) {
   const { fullName, email, password, phone, address } = req.body;
   try {
@@ -307,13 +295,13 @@ async function signUpOwner(req, res) {
     const token = generateToken(user);
 
     res.cookie("token", token, {
-      httpOnly: true, // Prevents JS access on client-side
-      secure: true, // Set to true if using HTTPS
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      httpOnly: true, 
+      secure: true, 
+      maxAge: 7 * 24 * 60 * 60 * 1000, 
       sameSite: "None",
     });
 
-    req.user = user; // Attach user to request for further use
+    req.user = user; 
 
     res.status(201).json({
       status: "success",
@@ -335,7 +323,6 @@ async function signUpOwner(req, res) {
   }
 }
 
-// Sign up admin
 async function signUpAdmin(req, res) {
   const { fullName, email, password, phone, address } = req.body;
   try {
@@ -360,13 +347,13 @@ async function signUpAdmin(req, res) {
     const token = generateToken(user);
 
     res.cookie("token", token, {
-      httpOnly: true, // Prevents JS access on client-side
-      secure: true, // Set to true if using HTTPS
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      httpOnly: true, 
+      secure: true, 
+      maxAge: 7 * 24 * 60 * 60 * 1000,
       sameSite: "None",
     });
 
-    req.user = user; // Attach user to request for further use
+    req.user = user; 
 
     res.status(201).json({
       status: "success",
@@ -377,7 +364,6 @@ async function signUpAdmin(req, res) {
   }
 }
 
-// User login
 async function fetchUserByEmailPassword(req, res) {
   const { email, password } = req.body;
   try {
@@ -401,13 +387,13 @@ async function fetchUserByEmailPassword(req, res) {
     const token = generateToken(user);
 
     res.cookie("token", token, {
-      httpOnly: true, // Prevents JS access on client-side
-      secure: true, // Set to true if using HTTPS
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      httpOnly: true, 
+      secure: true, 
+      maxAge: 7 * 24 * 60 * 60 * 1000, 
       sameSite: "None",
     });
 
-    req.user = user; // Attach user to request for further use
+    req.user = user; 
 
     res.status(200).json({
       status: "success",
@@ -429,7 +415,6 @@ async function fetchUserByEmailPassword(req, res) {
   }
 }
 
-// Get all users (admin use)
 async function getUsers(req, res) {
   try {
     const users = await User.find().select("-passwordHash");
@@ -445,7 +430,6 @@ async function getUsers(req, res) {
   }
 }
 
-// Update User
 
 async function updateUser(req, res) {
   const { fullName, email, phone, address } = req.body || {};
@@ -501,7 +485,6 @@ async function updateUser(req, res) {
   }
 }
 
-// Logout (handled client-side in JWT — optional server blacklist etc.)
 function logout(req, res) {
   res.clearCookie("token", {
     httpOnly: true,

@@ -76,7 +76,6 @@ exports.getRequestById = async (req, res) => {
       });
     }
 
-    // Check if user owns the request or is a tour guide with a quote
     const isOwner = request.userId._id.toString() === req.user._id.toString();
     const hasQuote = request.quotes.some(
       (q) => q.tourGuideId._id.toString() === req.user._id.toString()

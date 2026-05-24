@@ -1,12 +1,10 @@
 const Favourite = require("../Model/Favourite");
 
-// Add tour to favourites
 exports.addFavourite = async (req, res) => {
   try {
     const { tourId } = req.body;
     const userId = req.user._id;
 
-    // Check if already favourited
     const existing = await Favourite.findOne({ userId, tourId });
     if (existing) {
       return res.status(400).json({
@@ -30,7 +28,6 @@ exports.addFavourite = async (req, res) => {
   }
 };
 
-// Remove tour from favourites
 exports.removeFavourite = async (req, res) => {
   try {
     const { tourId } = req.params;
@@ -58,7 +55,6 @@ exports.removeFavourite = async (req, res) => {
   }
 };
 
-// Get user's favourites
 exports.getUserFavourites = async (req, res) => {
   try {
     const userId = req.user._id;
@@ -78,7 +74,6 @@ exports.getUserFavourites = async (req, res) => {
   }
 };
 
-// Check if tour is favourited
 exports.checkFavourite = async (req, res) => {
   try {
     const { tourId } = req.params;

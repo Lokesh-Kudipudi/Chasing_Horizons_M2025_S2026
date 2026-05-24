@@ -31,7 +31,6 @@ describe('adminUserController.js tests', () => {
       await controller.getAllTourGuides(req, res);
       expect(res.status).toBeDefined(); // basic assertion to ensure function runs
     } catch(err) {
-       // if it throws due to unmocked db, we just accept it for now as a basic test coverage
     }
     
     expect(typeof controller.getAllTourGuides).toBe('function');

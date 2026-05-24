@@ -103,7 +103,6 @@ bookingsRouter.get(
   }
 );
 
-// FIXED (Gap 5): added role check — only the booking owner or admin can cancel
 bookingsRouter.post(
   "/:bookingId/cancel",
   authenticateRole(["user", "admin"]),
@@ -123,7 +122,6 @@ bookingsRouter.post(
   }
 );
 
-// FIXED (Gap 6): added role check — only staff roles can change booking status
 bookingsRouter.post(
   "/:bookingId/status",
   authenticateRole(["admin", "hotelManager", "tourGuide"]),

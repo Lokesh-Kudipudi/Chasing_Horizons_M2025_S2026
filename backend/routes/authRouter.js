@@ -202,7 +202,6 @@ authRouter.post("/login", fetchUserByEmailPassword);
 authRouter.post("/register", signUpUser);
 authRouter.post("/register/hotel-manager", signUphotelManager);
 authRouter.post("/register/tour-guide", signUpTourGuide);
-// FIXED (Gap 7): invite-code middleware now guards owner self-registration
 authRouter.post("/register/owner", requireOwnerInviteCode, signUpOwner);
 authRouter.get("/logout", logout);
 

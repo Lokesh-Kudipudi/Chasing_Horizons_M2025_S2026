@@ -2,7 +2,7 @@ const { Hotel } = require("../Model/hotelModel");
 const { Tour } = require("../Model/tourModel");
 const { User } = require("../Model/userModel");
 
-// Assign a hotel to an employee
+
 async function assignHotelToEmployee(req, res) {
     try {
         const { hotelId } = req.params;
@@ -12,7 +12,6 @@ async function assignHotelToEmployee(req, res) {
             return res.status(400).json({ status: "error", message: "Employee ID is required" });
         }
 
-        // Verify employee exists and has the correct role
         const employee = await User.findById(employeeId);
         if (!employee || employee.role !== "employee") {
             return res.status(400).json({ status: "error", message: "Invalid Employee ID or user is not an employee" });
@@ -40,7 +39,7 @@ async function assignHotelToEmployee(req, res) {
     }
 }
 
-// Assign a tour to an employee
+
 async function assignTourToEmployee(req, res) {
     try {
         const { tourId } = req.params;
@@ -50,7 +49,6 @@ async function assignTourToEmployee(req, res) {
             return res.status(400).json({ status: "error", message: "Employee ID is required" });
         }
 
-        // Verify employee exists and has the correct role
         const employee = await User.findById(employeeId);
         if (!employee || employee.role !== "employee") {
             return res.status(400).json({ status: "error", message: "Invalid Employee ID or user is not an employee" });

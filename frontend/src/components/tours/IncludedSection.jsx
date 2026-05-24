@@ -1,4 +1,3 @@
-// components/IncludedSection.jsx
 import { FaCheckCircle } from "react-icons/fa";
 
 const IncludedSection = ({ includes }) => {

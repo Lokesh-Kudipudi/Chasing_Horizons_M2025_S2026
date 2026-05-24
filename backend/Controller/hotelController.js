@@ -77,7 +77,6 @@ async function getHotelById(hotelId) {
 
 async function updateHotel(hotelId, hotelData) {
   try {
-    // Convert features object to Map
     if (hotelData.features) {
       const featuresMap = new Map();
       Object.entries(hotelData.features).forEach(
@@ -224,7 +223,6 @@ async function getHotelByOwnerId(userId) {
       };
     }
     
-    // Auto-cleanup: Remove null entries from roomType
     if (hotel.roomType && hotel.roomType.some(r => r === null)) {
       hotel.roomType = hotel.roomType.filter(r => r !== null);
       await hotel.save();
@@ -262,7 +260,6 @@ async function deleteRoomType(hotelId, roomId) {
       throw new Error("Hotel not found");
     }
 
-    // Use pull to remove the subdocument by ID
     hotel.roomType.pull({ _id: roomId });
     await hotel.save();
 

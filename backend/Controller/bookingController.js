@@ -75,13 +75,12 @@ async function makeTourBooking(userId, tourId, bookingDetails) {
       throw new Error("Tour not found.");
     }
 
-    // 1. Check Max Slots
     const startDate = bookingDetails.startDate;
     if (startDate) {
       const existingBookings = await Booking.find({
         "bookingDetails.startDate": startDate,
         itemId: tourId,
-        "bookingDetails.status": { $ne: "cancelled" }, // Don't count cancelled bookings
+        "bookingDetails.status": { $ne: "cancelled" }, 
       });
 
       const currentPeopleCount = existingBookings.reduce((sum, booking) => {
@@ -95,17 +94,13 @@ async function makeTourBooking(userId, tourId, bookingDetails) {
       }
     }
 
-    // Calculate price per person
     const pricePerPerson = tour.price.amount - tour.price.discount * tour.price.amount;
 
-    // Determine number of guests (default to 1 if not provided)
     const numGuests = bookingDetails.numGuests || 1;
 
-    // Calculate total price based on guests
     const totalPrice = pricePerPerson * numGuests;
 
-    // 2. Calculate Commission
-    const commissionRate = tour.commissionRate || 10; // Default 10%
+    const commissionRate = tour.commissionRate || 10; 
     const commissionAmount = (totalPrice * commissionRate) / 100;
 
     const booking = new Booking({
@@ -117,8 +112,8 @@ async function makeTourBooking(userId, tourId, bookingDetails) {
         ...bookingDetails,
         status: bookingDetails.status || "pending",
         bookingDate: new Date(),
-        price: totalPrice, // Save the total price
-        pricePerPerson: pricePerPerson, // Save unit price for reference
+        price: totalPrice,
+        pricePerPerson: pricePerPerson,
       },
     });
 
@@ -149,18 +144,16 @@ async function makeHotelBooking(
       throw new Error("Hotel not found.");
     }
 
-    // 1. Check Availability based on Room Model
     let { startDate, endDate, roomTypeId } = bookingDetails;
 
     if (startDate) startDate = new Date(startDate);
     if (endDate) endDate = new Date(endDate);
 
     if (startDate && endDate && roomTypeId) {
-      // a. Count total rooms of this type in this hotel
       const totalRooms = await Room.countDocuments({
         hotelId: hotelId,
         roomTypeId: roomTypeId,
-        status: { $ne: "maintenance" } // Exclude maintenance rooms
+        status: { $ne: "maintenance" } 
       });
 
 
@@ -168,17 +161,13 @@ async function makeHotelBooking(
         throw new Error("No rooms of this type defined in the system.");
       }
 
-      // b. Count overlapping bookings for this room type
-      // A booking overlaps if:
-      // (StartA <= EndB) and (EndA >= StartB)
       const overlappingBookings = await Booking.find({
         itemId: hotelId,
         type: "Hotel",
         "bookingDetails.roomTypeId": roomTypeId,
-        "bookingDetails.status": { $in: ["pending", "booked", "checkedIn"] }, // Active bookings
+        "bookingDetails.status": { $in: ["pending", "booked", "checkedIn"] },
         $or: [
           {
-            // Case 1: Booking starts during existing booking
             "bookingDetails.startDate": { $lte: endDate },
             "bookingDetails.endDate": { $gte: startDate },
           }
@@ -192,7 +181,6 @@ async function makeHotelBooking(
       throw new Error("Start date, end date, and room type are required.");
     }
 
-    // 2. Calculate Commission
     const parsePrice = (priceVal) => {
       if (typeof priceVal === 'number') return priceVal;
       if (!priceVal) return 0;
@@ -215,7 +203,6 @@ async function makeHotelBooking(
         status: bookingDetails.status || "pending",
         bookingDate: new Date(),
         price: totalPrice,
-        // Ensure Date objects are saved
         startDate: startDate,
         endDate: endDate
       },
@@ -295,7 +282,6 @@ async function updateBookingStatus(bookingId, status) {
       };
     }
 
-    // Handle Side Effects on Room Status
     if ((status === "complete" || status === "cancelled") && booking.assignedRoomId) {
       await Room.findByIdAndUpdate(booking.assignedRoomId, {
         status: "available",
@@ -320,24 +306,21 @@ async function updateBookingStatus(bookingId, status) {
 
 async function getTourGuideBookings(guideId) {
   try {
-    // 1. Get all tours by this guide
     const tours = await Tour.find({ tourGuideId: guideId }).lean();
     const tourIds = tours.map((t) => t._id);
 
-    // 2. Get all bookings for these tours
     const bookings = await Booking.find({
       itemId: { $in: tourIds },
       type: "Tour",
     })
       .populate("userId", "fullName email")
-      .populate("itemId", "title") // Populate tour details
+      .populate("itemId", "title") 
       .lean();
 
-    // Map to a friendlier format if needed, or just return
     const formattedBookings = bookings.map(b => ({
       _id: b._id,
-      tour: b.itemId, // Populated tour
-      user: b.userId, // Populated user
+      tour: b.itemId, 
+      user: b.userId, 
       startDate: b.bookingDetails?.startDate,
       status: b.bookingDetails?.status,
       price: b.bookingDetails?.price,
@@ -385,7 +368,6 @@ async function getBookingInvoice(userId, bookingId) {
 
 async function getHotelBookedDates(hotelId, roomTypeId) {
   try {
-    // 1. Get Total Rooms of this type
     const totalRooms = await Room.countDocuments({
       hotelId: hotelId,
       roomTypeId: roomTypeId,
@@ -395,12 +377,11 @@ async function getHotelBookedDates(hotelId, roomTypeId) {
     if (totalRooms === 0) {
       return {
         status: "success",
-        data: [], // Or handle as error: no rooms exist
+        data: [], 
         message: "No rooms of this type found."
       };
     }
 
-    // 2. Fetch active bookings for the next 2 months
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const twoMonthsLater = new Date();
@@ -415,27 +396,18 @@ async function getHotelBookedDates(hotelId, roomTypeId) {
       "bookingDetails.startDate": { $lte: twoMonthsLater }
     });
 
-    // 3. Calculate daily occupation
-    const occupationMap = {}; // { "YYYY-MM-DD": count }
+
+    const occupationMap = {}; 
 
     bookings.forEach(booking => {
       let start = new Date(booking.bookingDetails.startDate);
       let end = new Date(booking.bookingDetails.endDate);
 
-      // Normalize time to UTC midnight
       start.setUTCHours(0, 0, 0, 0);
       end.setUTCHours(0, 0, 0, 0);
 
-      // Iterate from start to end - 1 day (checkout day is usually available for checkin)
-      // Actually, if I book 1st to 5th. 1, 2, 3, 4 are occupied nights.
-      // A new guest can check in on 5th? Yes.
-      // So we count nights.
 
       for (let d = new Date(start); d < end; d.setUTCDate(d.getUTCDate() + 1)) {
-        // Compare timestamps or date strings. But here we need to account for "today".
-        // If d is before today (in local time? or UTC?), we might skip it if we only care about future.
-        // The original logic checked d < today. 
-        // Let's recreate "today" in UTC midnight.
         const todayUTC = new Date();
         todayUTC.setUTCHours(0, 0, 0, 0);
 
@@ -446,7 +418,6 @@ async function getHotelBookedDates(hotelId, roomTypeId) {
       }
     });
 
-    // 4. Find dates where occupation >= totalRooms
     const fullyBookedDates = [];
     for (const [date, count] of Object.entries(occupationMap)) {
       if (count >= totalRooms) {
@@ -468,7 +439,6 @@ async function getHotelBookedDates(hotelId, roomTypeId) {
   }
 }
 
-// Admin Functions
 async function getAllBookingsAdmin() {
   try {
     const bookings = await Booking.find()
@@ -479,13 +449,11 @@ async function getAllBookingsAdmin() {
 
     const validBookings = bookings.filter((booking) => booking.itemId !== null);
 
-    // Fetch Custom Tour Requests
     const customTours = await CustomTourRequest.find()
       .populate("userId", "fullName email phone")
       .sort({ createdAt: -1 })
       .lean();
 
-    // Format Custom Tours to match Booking structure
     const formattedCustomTours = customTours.map((tour) => ({
       _id: tour._id,
       userId: tour.userId,
@@ -502,7 +470,6 @@ async function getAllBookingsAdmin() {
       createdAt: tour.createdAt,
     }));
 
-    // Merge and sort
     const allBookings = [...validBookings, ...formattedCustomTours].sort(
       (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
     );
@@ -549,7 +516,6 @@ async function getBookingDetailsAdmin(bookingId) {
 
 async function cancelBookingAdmin(bookingId) {
   try {
-    // Try to cancel standard booking first
     let result = await Booking.updateOne(
       { _id: bookingId },
       { $set: { "bookingDetails.status": "cancel" } }
@@ -562,7 +528,6 @@ async function cancelBookingAdmin(bookingId) {
       };
     }
 
-    // If not found, try to cancel Custom Tour Request
     result = await CustomTourRequest.updateOne(
       { _id: bookingId },
       { $set: { status: "cancelled" } }
