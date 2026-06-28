@@ -202,7 +202,7 @@ const ToursSearch = () => {
               </div>
             ) : (
               <div className="flex flex-col justify-center items-center h-64 bg-white rounded-2xl shadow-sm animate-fade-in text-center p-8">
-                <div className="text-6xl mb-4">🔍</div>
+                <div className="text-6xl mb-4"></div>
                 <h3 className="text-xl font-bold text-gray-800 mb-2">No tours found</h3>
                 <p className="text-gray-500">
                   Try adjusting your search or filters to find what you're looking for.

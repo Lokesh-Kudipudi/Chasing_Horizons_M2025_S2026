@@ -250,7 +250,7 @@ const TourBookings = () => {
           <div className="flex justify-between items-center border-t border-gray-100 pt-4 mt-auto">
              <div className="flex items-center gap-2 text-sm text-gray-600">
                 <span className="flex items-center gap-1 bg-white border border-gray-200 px-2 py-1 rounded-lg"><FaRoute className="text-gray-400" /> {booking.itemId?.destinations?.length || 0} stops</span>
-                 <span className="flex items-center gap-1 bg-white border border-gray-200 px-2 py-1 rounded-lg">👥 {getGuestCount(booking)}</span>
+                 <span className="flex items-center gap-1 bg-white border border-gray-200 px-2 py-1 rounded-lg"> {getGuestCount(booking)}</span>
              </div>
              <div className="font-bold text-[#003366] text-lg">
                 ₹{(booking.bookingDetails?.price || 0).toLocaleString()}
@@ -304,7 +304,7 @@ const TourBookings = () => {
          <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-gray-100 pb-8">
             <div>
                 <h1 className="text-4xl font-serif font-bold text-[#003366] mb-3 flex items-center gap-3">
-                   <span className="bg-blue-50 p-2 rounded-xl text-3xl">🗺️</span> My Adventures
+                   <span className="bg-blue-50 p-2 rounded-xl text-3xl">️</span> My Adventures
                 </h1>
                 <p className="text-gray-500 text-lg max-w-2xl">Manage your guided tours. Track your upcoming expeditions and relive past journeys.</p>
             </div>
@@ -360,7 +360,7 @@ const TourBookings = () => {
                     </div>
                 ) : (
                     <div className="bg-gray-50 rounded-[2rem] p-12 text-center border-2 border-dashed border-gray-200">
-                         <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">🏔️</div>
+                         <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">️</div>
                         <h3 className="text-xl font-bold text-gray-800 mb-2">No upcoming tours</h3>
                         <p className="text-gray-500 mb-6">Ready to climb a mountain or explore a new city?</p>
                         <button onClick={() => navigate("/tours")} className="text-[#003366] font-bold hover:underline">Browse Catalogue</button>

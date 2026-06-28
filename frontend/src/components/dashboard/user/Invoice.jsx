@@ -95,7 +95,7 @@ const Invoice = ({ booking, onClose }) => {
                 <tr className="border-b border-gray-50">
                   <td className="py-6">
                     <p className="font-bold text-[#003366] text-lg mb-1">{itemId?.title || (isTour ? "Tour Package" : "Hotel Stay")}</p>
-                    <p className="text-sm text-gray-500 flex items-center gap-1">📍 {itemId?.location || itemId?.startLocation}</p>
+                    <p className="text-sm text-gray-500 flex items-center gap-1"> {itemId?.location || itemId?.startLocation}</p>
                   </td>
                   <td className="py-6 text-right text-gray-600 space-y-1">
                     {isTour ? (

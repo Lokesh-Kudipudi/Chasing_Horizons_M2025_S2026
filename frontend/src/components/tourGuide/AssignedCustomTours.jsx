@@ -177,7 +177,7 @@ const AssignedCustomTours = () => {
               {/* Latest Bargain from User */}
               {request.status === "bargaining" && request.bargains?.length > 0 && (
                 <div className="mb-4 bg-orange-50 border border-orange-200 p-4 rounded-xl animate-pulse">
-                  <p className="text-orange-800 font-bold text-sm mb-2">🔥 Client's Counter Offer:</p>
+                  <p className="text-orange-800 font-bold text-sm mb-2"> Client's Counter Offer:</p>
                   <p className="text-2xl font-bold text-orange-700">
                     ₹{request.bargains[request.bargains.length - 1].amount.toLocaleString()}
                   </p>

@@ -28,10 +28,10 @@ const HeroSection = ({ tour }) => {
           
           <div className="flex flex-wrap justify-center gap-6 text-white/90 text-lg font-medium">
              <div className="flex items-center gap-2">
-                <span>📍 {tour.startLocation}</span>
+                <span> {tour.startLocation}</span>
              </div>
              <div className="flex items-center gap-2">
-                <span>⏳ {tour.duration}</span>
+                <span> {tour.duration}</span>
              </div>
           </div>
         </div>

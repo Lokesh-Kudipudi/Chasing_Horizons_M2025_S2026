@@ -257,7 +257,7 @@ const HotelBookings = () => {
         <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-gray-100 pb-8">
             <div>
                 <h1 className="text-4xl font-serif font-bold text-[#003366] mb-3 flex items-center gap-3">
-                   <span className="bg-blue-50 p-2 rounded-xl text-3xl">🏨</span> Luxury Stays
+                   <span className="bg-blue-50 p-2 rounded-xl text-3xl"></span> Luxury Stays
                 </h1>
                 <p className="text-gray-500 text-lg max-w-2xl">Manage your hotel reservations. From upcoming getaways to past memorable stays, find everything here.</p>
             </div>
@@ -310,7 +310,7 @@ const HotelBookings = () => {
                     </div>
                 ) : (
                     <div className="bg-gray-50 rounded-[2rem] p-12 text-center border-2 border-dashed border-gray-200">
-                        <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">🧳</div>
+                        <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl"></div>
                         <h3 className="text-xl font-bold text-gray-800 mb-2">No upcoming trips</h3>
                         <p className="text-gray-500 mb-6">Time to treat yourself to a luxury getaway?</p>
                         <button onClick={() => navigate("/hotels")} className="text-[#003366] font-bold hover:underline">Explore Hotels</button>

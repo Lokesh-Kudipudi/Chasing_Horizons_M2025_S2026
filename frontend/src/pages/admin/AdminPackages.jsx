@@ -212,7 +212,7 @@ export default function AdminPackages() {
         {/* Header */}
         <div className="border-b border-gray-100 pb-6">
           <h1 className="text-4xl font-serif font-bold text-[#003366] mb-2 flex items-center gap-3">
-            <span className="bg-blue-50 p-2 rounded-xl text-3xl">📦</span> Packages Management
+            <span className="bg-blue-50 p-2 rounded-xl text-3xl"></span> Packages Management
           </h1>
           <p className="text-gray-500 text-lg">Manage tour packages, pricing, and availability.</p>
         </div>
@@ -301,7 +301,7 @@ export default function AdminPackages() {
                   {pkg.mainImage ? (
                     <img src={pkg.mainImage} alt={pkg.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400 text-4xl">📸</div>
+                    <div className="w-full h-full flex items-center justify-center text-gray-400 text-4xl"></div>
                   )}
                   <div className="absolute top-4 right-4">
                     <span className={`px-3 py-1 rounded-full text-xs font-bold ${pkg.status === "active" ? "bg-green-500 text-white" : "bg-red-500 text-white"
@@ -314,7 +314,7 @@ export default function AdminPackages() {
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2">{pkg.title}</h3>
                   <p className="text-sm text-gray-500 mb-4 flex items-center gap-1">
-                    📍 {pkg.startLocation}
+                     {pkg.startLocation}
                   </p>
 
                   <div className="space-y-2 mb-4">
@@ -332,7 +332,7 @@ export default function AdminPackages() {
                     </div>
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-gray-500">Rating</span>
-                      <span className="font-bold text-yellow-500">⭐ {pkg.rating?.toFixed(1) || "N/A"}</span>
+                      <span className="font-bold text-yellow-500"> {pkg.rating?.toFixed(1) || "N/A"}</span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-gray-500">Revenue</span>
@@ -421,7 +421,7 @@ export default function AdminPackages() {
           </div>
         ) : (
           <div className="bg-gray-50 rounded-[2rem] p-12 text-center border-2 border-dashed border-gray-200">
-            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">🔍</div>
+            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl"></div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">No packages found</h3>
             <p className="text-gray-500">Try adjusting your filters or search.</p>
           </div>

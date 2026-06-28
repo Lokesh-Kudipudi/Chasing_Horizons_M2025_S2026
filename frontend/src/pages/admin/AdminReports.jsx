@@ -55,7 +55,7 @@ export default function AdminReports() {
                 {/* Header */}
                 <div className="border-b border-gray-100 pb-6">
                     <h1 className="text-4xl font-serif font-bold text-[#003366] mb-2 flex items-center gap-3">
-                        <span className="bg-green-50 p-2 rounded-xl text-3xl">📊</span> Earnings & Reports
+                        <span className="bg-green-50 p-2 rounded-xl text-3xl"></span> Earnings & Reports
                     </h1>
                     <p className="text-gray-500 text-lg">Detailed overview of commissions from hotels and tours.</p>
                 </div>

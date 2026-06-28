@@ -147,7 +147,7 @@ const Settings = ({
       <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-gray-100 pb-8">
         <div>
           <h1 className="text-4xl font-serif font-bold text-[#003366] mb-3 flex items-center gap-3">
-            <span className="bg-blue-50 p-2 rounded-xl text-3xl">⚙️</span> Account Settings
+            <span className="bg-blue-50 p-2 rounded-xl text-3xl">️</span> Account Settings
           </h1>
           <p className="text-gray-500 text-lg">Manage your profile and security settings.</p>
         </div>

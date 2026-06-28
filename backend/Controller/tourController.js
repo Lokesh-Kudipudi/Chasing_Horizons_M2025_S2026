@@ -80,6 +80,22 @@ async function getRecommendedTours(toursIds) {
 
 async function getTourById(tourId) {
   try {
+    const cacheKey = `cache:tour:${tourId}`;
+    let cachedData = null;
+    try {
+      cachedData = await redis.get(cacheKey);
+    } catch (redisError) {
+      console.error("Redis Get Error (getTourById):", redisError.message);
+    }
+
+    if (cachedData) {
+      return {
+        status: "success",
+        data: cachedData,
+        source: "redis"
+      };
+    }
+
     const tour = await Tour.findById(tourId)
       .populate("tourGuideId", "fullName email phone photo")
       .lean();
@@ -118,9 +134,16 @@ async function getTourById(tourId) {
       tour.bookingDetails = updatedBookingDetails;
     }
 
+    try {
+      await redis.set(cacheKey, tour, { ex: 3600 });
+    } catch (redisError) {
+      console.error("Redis Set Error (getTourById):", redisError.message);
+    }
+
     return {
       status: "success",
       data: tour,
+      source: "mongodb"
     };
   } catch (error) {
     throw new Error("Error fetching tour: " + error.message);
@@ -142,6 +165,15 @@ async function updateTour(tourId, updateData) {
         message: "Tour not found",
       };
     }
+
+    // Invalidate caches
+    try {
+      await redis.del(`cache:tour:${tourId}`);
+      await redis.del("cache:tours:all");
+    } catch (redisError) {
+      console.error("Redis Cache Invalidation Error (updateTour):", redisError.message);
+    }
+
     return {
       status: "success",
       data: updatedTour,
@@ -162,6 +194,15 @@ async function deleteTour(tourId) {
         message: "Tour not found",
       };
     }
+
+    // Invalidate caches
+    try {
+      await redis.del(`cache:tour:${tourId}`);
+      await redis.del("cache:tours:all");
+    } catch (redisError) {
+      console.error("Redis Cache Invalidation Error (deleteTour):", redisError.message);
+    }
+
     return {
       status: "success",
       message: "Tour deleted successfully",

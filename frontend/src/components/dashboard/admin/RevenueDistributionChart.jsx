@@ -45,7 +45,7 @@ const RevenueDistributionChart = ({ hotelRevenue = 0, tourRevenue = 0 }) => {
                 </ResponsiveContainer>
             ) : (
                 <div className="h-full flex flex-col items-center justify-center text-gray-400">
-                    <div className="text-4xl mb-4">📈</div>
+                    <div className="text-4xl mb-4"></div>
                     <p className="font-bold">No revenue data available yet</p>
                 </div>
             )}

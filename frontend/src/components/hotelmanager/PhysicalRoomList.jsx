@@ -5,7 +5,7 @@ export default function PhysicalRoomList({ physicalRooms, roomTypes, onAddRoom, 
   if (physicalRooms.length === 0) {
       return (
         <div className="bg-gray-50 rounded-[2rem] p-12 text-center border-2 border-dashed border-gray-200">
-            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">🔑</div>
+            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl"></div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">No physical rooms found</h3>
             <p className="text-gray-500 mb-6">Add rooms to generate inventory for bookings.</p>
             <button onClick={onAddRoom} className="text-[#003366] font-bold hover:underline">Create your first room</button>

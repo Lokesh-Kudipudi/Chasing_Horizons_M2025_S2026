@@ -31,3 +31,4 @@ DDD_Design.md
 old_project/.env
 backend/.env
 .env.local
+log/

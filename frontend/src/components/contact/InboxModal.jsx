@@ -7,7 +7,7 @@ function InboxModal({ isOpen, onClose, queries, loading }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fade-in">
       <div className="bg-white w-full max-w-lg rounded-[2rem] shadow-2xl overflow-hidden flex flex-col max-h-[80vh]">
         <div className="bg-[#003366] p-6 flex justify-between items-center text-white sticky top-0">
-          <h3 className="font-bold text-xl flex items-center gap-2">📥 My Inbox</h3>
+          <h3 className="font-bold text-xl flex items-center gap-2"> My Inbox</h3>
           <button onClick={onClose} className="bg-white/10 p-2 rounded-full hover:bg-white/20">✕</button>
         </div>
         
@@ -38,7 +38,7 @@ function InboxModal({ isOpen, onClose, queries, loading }) {
             ))
           ) : (
              <div className="text-center py-12 text-gray-400">
-                <p className="text-4xl mb-3">📭</p>
+                <p className="text-4xl mb-3"></p>
                 <p>No queries found.</p>
              </div>
           )}

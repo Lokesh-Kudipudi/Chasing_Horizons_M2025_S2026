@@ -2,7 +2,7 @@
 
 This directory contains the server-side application for the Chasing Horizons platform. It provides RESTful APIs to serve the frontend, interact with the MongoDB database, and integrate with external services like Google Gemini AI.
 
-## 🚀 Tech Stack
+##  Tech Stack
 
 *   **Runtime:** Node.js
 *   **Framework:** Express.js (v5.1.0)
@@ -22,7 +22,7 @@ This directory contains the server-side application for the Chasing Horizons pla
 *   **AI Integration:** `@google/genai` (Google Gemini API) for chatbots and personalized recommendations
 *   **Logging:** `morgan` and `rotating-file-stream` for detailed request logging
 
-## 📁 Folder Structure
+##  Folder Structure
 
 ```
 backend/
@@ -51,14 +51,14 @@ backend/
 └── scripts/               # Utility scripts (e.g., database seeding)
 ```
 
-## 🧠 Key Architectural Decisions
+##  Key Architectural Decisions
 
 1.  **MVC Pattern:** The application follows a Model-View-Controller architecture (minus the View, as it's an API), cleanly separating routes, controllers, and models.
 2.  **Role-Based Access Control (RBAC):** Middleware checks verify user roles (`user`, `admin`, `hotelManager`, `tourGuide`) before granting access to specific endpoints (e.g., only `admin` can approve domains; only `tourGuide` can create tours).
 3.  **JWT Authentication:** Stateless authentication using JWTs stored in HTTP-only cookies to enhance security against XSS attacks.
 4.  **Cloudinary Integration:** Images are uploaded directly to Cloudinary during request processing via `multer-storage-cloudinary`, preventing server filesystem bloat.
 
-## 🛠️ Setup & Local Development
+## ️ Setup & Local Development
 
 ### Prerequisites
 
@@ -121,7 +121,7 @@ npm start
 
 The server will be running at `http://localhost:5500` (or your configured `PORT`).
 
-## 📚 API Architecture Summary
+##  API Architecture Summary
 
 The RESTful APIs are structured around the core entities:
 *   `/api/v1/auth`: Registration, login, logout.

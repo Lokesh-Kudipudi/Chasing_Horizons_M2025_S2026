@@ -99,7 +99,7 @@ const AdminBookings = () => {
       <AdminPageHeader 
         title="All Bookings" 
         subtitle="View and manage all platform bookings."
-        icon="📋"
+        icon=""
       />
 
       <BookingFilters filter={filter} setFilter={setFilter} />

@@ -272,7 +272,7 @@ export default function TourGuideCreateTour() {
           {/* Basic Information */}
           <div className="bg-white rounded-[2rem] p-8 shadow-xl shadow-gray-200/40 border border-gray-100">
             <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2 pb-4 border-b border-gray-100">
-              <span className="bg-blue-50 p-2 rounded-xl text-[#003366]">📝</span> Basic Information
+              <span className="bg-blue-50 p-2 rounded-xl text-[#003366]"></span> Basic Information
             </h2>
             <div className="space-y-6">
               <div>
@@ -423,7 +423,7 @@ export default function TourGuideCreateTour() {
           {/* Additional Details */}
           <div className="bg-white rounded-[2rem] p-8 shadow-xl shadow-gray-200/40 border border-gray-100">
             <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2 pb-4 border-b border-gray-100">
-              <span className="bg-blue-50 p-2 rounded-xl text-[#003366]">🏷️</span> Additional Details
+              <span className="bg-blue-50 p-2 rounded-xl text-[#003366]">️</span> Additional Details
             </h2>
             <div className="space-y-6">
               <div>
@@ -474,7 +474,7 @@ export default function TourGuideCreateTour() {
           <div className="bg-white rounded-[2rem] p-8 shadow-xl shadow-gray-200/40 border border-gray-100">
             <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
               <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                <span className="bg-blue-50 p-2 rounded-xl text-[#003366]">📅</span> Booking Dates
+                <span className="bg-blue-50 p-2 rounded-xl text-[#003366]"></span> Booking Dates
               </h2>
               <button
                 type="button"
@@ -551,7 +551,7 @@ export default function TourGuideCreateTour() {
           <div className="bg-white rounded-[2rem] p-8 shadow-xl shadow-gray-200/40 border border-gray-100">
             <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
               <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                <span className="bg-blue-50 p-2 rounded-xl text-[#003366]">📍</span> Places to Visit
+                <span className="bg-blue-50 p-2 rounded-xl text-[#003366]"></span> Places to Visit
               </h2>
               <button
                 type="button"
@@ -620,7 +620,7 @@ export default function TourGuideCreateTour() {
           <div className="bg-white rounded-[2rem] p-8 shadow-xl shadow-gray-200/40 border border-gray-100">
             <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
               <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                <span className="bg-blue-50 p-2 rounded-xl text-[#003366]">🗓️</span> Daily Itinerary
+                <span className="bg-blue-50 p-2 rounded-xl text-[#003366]">️</span> Daily Itinerary
               </h2>
               <button
                 type="button"

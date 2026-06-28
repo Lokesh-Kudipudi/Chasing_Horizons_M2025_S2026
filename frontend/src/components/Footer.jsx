@@ -82,7 +82,7 @@ export default function Footer() {
       {/* Copyright */}
       <div className="border-t border-white/10 pt-8 text-center">
         <p className="text-blue-100/60 text-sm">
-          © {new Date().getFullYear()} Chasing Horizons. All Rights Reserved.
+           {new Date().getFullYear()} Chasing Horizons. All Rights Reserved.
         </p>
       </div>
     </footer>

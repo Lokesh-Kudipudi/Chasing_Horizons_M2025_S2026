@@ -142,14 +142,14 @@ export default function AdminDashboard() {
         <div className="grid gap-6 lg:grid-cols-5">
           <div className="lg:col-span-3 bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/40 border border-gray-100 p-8">
             <h2 className="text-2xl font-black text-gray-800 mb-8 flex items-center gap-3">
-              <span className="p-2 bg-blue-50 rounded-xl text-xl">📊</span> Booking Velocity
+              <span className="p-2 bg-blue-50 rounded-xl text-xl"></span> Booking Velocity
             </h2>
             <BookingChart monthlyData={analytics?.monthlyBookings} />
           </div>
 
           <div className="lg:col-span-2 bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/40 border border-gray-100 p-8">
             <h2 className="text-2xl font-black text-gray-800 mb-8 flex items-center gap-3">
-              <span className="p-2 bg-green-50 rounded-xl text-xl">🍰</span> Revenue Mix
+              <span className="p-2 bg-green-50 rounded-xl text-xl"></span> Revenue Mix
             </h2>
             <RevenueDistributionChart
               hotelRevenue={analytics?.totalHotelRevenue || 0}
@@ -163,7 +163,7 @@ export default function AdminDashboard() {
           <div className="bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/40 border border-gray-100 p-8">
             <ContributionList
               title="Top Performing Hotels"
-              icon="🏨"
+              icon=""
               items={analytics?.topHotels?.map(h => ({ id: h._id, title: h.title, revenue: h.totalRevenue })) || []}
               totalValue={analytics?.totalHotelRevenue || 0}
               colorClass="bg-[#003366]"
@@ -172,7 +172,7 @@ export default function AdminDashboard() {
           <div className="bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/40 border border-gray-100 p-8">
             <ContributionList
               title="Top Performing Packages"
-              icon="🗺️"
+              icon="️"
               items={analytics?.topTours?.map(t => ({ id: t._id, title: t.title, revenue: t.totalRevenue })) || []}
               totalValue={analytics?.totalTourRevenue || 0}
               colorClass="bg-[#008000]"
@@ -184,7 +184,7 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/40 border border-gray-100 p-8">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-2xl font-black text-gray-800 flex items-center gap-3">
-              <span className="p-2 bg-orange-50 rounded-xl text-xl">🕒</span> Recent Transactions
+              <span className="p-2 bg-orange-50 rounded-xl text-xl"></span> Recent Transactions
             </h2>
             <Link className="px-5 py-2 bg-blue-50 text-[#003366] text-sm font-black rounded-xl hover:bg-[#003366] hover:text-white transition-all" to="/admin/bookings">
               History →

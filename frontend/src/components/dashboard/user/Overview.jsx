@@ -295,8 +295,8 @@ const Overview = () => {
                                     <div className="text-white/50 text-xs font-bold uppercase tracking-widest mb-1">{next.type} Reservation</div>
                                     <h2 className="text-3xl font-bold mb-4">{next.itemId?.title}</h2>
                                     <div className="flex gap-4 text-sm text-white/80 mb-8">
-                                        <span className="bg-white/10 px-3 py-1 rounded-lg backdrop-blur-md">📅 {new Date(next.bookingDetails?.startDate || next.bookingDetails?.checkInDate).toDateString()}</span>
-                                        <span className="bg-white/10 px-3 py-1 rounded-lg backdrop-blur-md">📍 {next.itemId?.location || next.itemId?.startLocation}</span>
+                                        <span className="bg-white/10 px-3 py-1 rounded-lg backdrop-blur-md"> {new Date(next.bookingDetails?.startDate || next.bookingDetails?.checkInDate).toDateString()}</span>
+                                        <span className="bg-white/10 px-3 py-1 rounded-lg backdrop-blur-md"> {next.itemId?.location || next.itemId?.startLocation}</span>
                                     </div>
                                 </div>
                             )

@@ -809,14 +809,14 @@ async function verifyOTP(req, res) {
     console.log(`Comparing OTP: User="${userOTP}" vs DB="${dbOTP}"`);
 
     if (userOTP !== dbOTP) {
-      console.log(`❌ OTP Mismatch for ${email}`);
+      console.log(` OTP Mismatch for ${email}`);
       return res.status(400).json({
         status: "fail",
         message: "Invalid OTP. Please enter the correct OTP.",
       });
     }
 
-    console.log(`✅ OTP Match for ${email}`);
+    console.log(` OTP Match for ${email}`);
 
     // Delete OTP after verification (one-time use)
     await deleteOTP(email);

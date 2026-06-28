@@ -15,7 +15,7 @@ export default function HeroSection() {
       {/* Content */}
       <div className="relative z-10 text-white px-4 max-w-4xl animate-fade-in">
         <div className="inline-block px-6 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full mb-6 animate-slide-down">
-          <span className="text-sm font-semibold tracking-wider">✨ Your Journey Starts Here</span>
+          <span className="text-sm font-semibold tracking-wider"> Your Journey Starts Here</span>
         </div>
         
         <h1 className="text-6xl md:text-7xl font-bold mb-6 drop-shadow-2xl bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent animate-gradient-x">
@@ -32,13 +32,13 @@ export default function HeroSection() {
             href="/tours" 
             className="px-8 py-4 bg-white text-[#003366] rounded-2xl font-bold hover:bg-blue-50 transition-all shadow-2xl hover:scale-105 transform hover:shadow-white/20 flex items-center gap-2"
           >
-            🗺️ Explore Tours
+            ️ Explore Tours
           </a>
           <a 
             href="/hotels" 
             className="px-8 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white rounded-2xl font-bold hover:bg-white/20 transition-all shadow-2xl hover:scale-105 transform flex items-center gap-2"
           >
-            🏨 Find Hotels
+             Find Hotels
           </a>
         </div>
 

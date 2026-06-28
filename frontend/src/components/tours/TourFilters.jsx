@@ -145,7 +145,7 @@ const TourFilters = ({
           >
             <div className="flex items-center gap-3">
               <span className={`text-xl ${showFavouritesOnly ? 'animate-pulse' : ''}`}>
-                {showFavouritesOnly ? '❤️' : '🤍'}
+                {showFavouritesOnly ? '️' : ''}
               </span>
               <span className="font-semibold">Show Favourites Only</span>
             </div>

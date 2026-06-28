@@ -86,7 +86,7 @@ export default function TourGuideMyTours() {
         <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-gray-100 pb-8">
           <div>
             <h1 className="text-4xl font-serif font-bold text-[#003366] mb-3 flex items-center gap-3">
-              <span className="bg-blue-50 p-2 rounded-xl text-3xl">🗺️</span> My Tours
+              <span className="bg-blue-50 p-2 rounded-xl text-3xl">️</span> My Tours
             </h1>
             <p className="text-gray-500 text-lg">Manage and track all your tour packages.</p>
           </div>
@@ -131,7 +131,7 @@ export default function TourGuideMyTours() {
         {/* Tours Grid */}
         {filteredTours.length === 0 ? (
           <div className="bg-gray-50 rounded-[2rem] p-12 text-center border-2 border-dashed border-gray-200">
-            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">🗺️</div>
+            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">️</div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">No tours found</h3>
             <p className="text-gray-500 mb-6">
               {tours.length === 0 ? "You haven't created any tours yet." : "Try adjusting your search."}

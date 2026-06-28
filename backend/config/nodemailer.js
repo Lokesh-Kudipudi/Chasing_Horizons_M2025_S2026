@@ -56,7 +56,7 @@ const sendOTPEmail = async (email, otp) => {
             
             <div style="background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
               <p style="margin: 0; color: #92400e; font-size: 13px;">
-                <strong>⚠️ Security Notice:</strong> Never share this OTP with anyone. Chasing Horizons will never ask for your OTP via email.
+                <strong>️ Security Notice:</strong> Never share this OTP with anyone. Chasing Horizons will never ask for your OTP via email.
               </p>
             </div>
             
@@ -67,7 +67,7 @@ const sendOTPEmail = async (email, otp) => {
             <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
             
             <p style="color: #9ca3af; font-size: 12px; text-align: center; margin: 0;">
-              © 2026 Chasing Horizons. All rights reserved.<br>
+               2026 Chasing Horizons. All rights reserved.<br>
               <a href="#" style="color: #003366; text-decoration: none;">Contact Support</a> | 
               <a href="#" style="color: #003366; text-decoration: none;">Privacy Policy</a>
             </p>
@@ -82,7 +82,7 @@ const sendOTPEmail = async (email, otp) => {
     console.log(`   Message ID: ${info.messageId}`);
     return { success: true, message: "OTP sent to your email successfully" };
   } catch (error) {
-    console.error("\n❌ EMAIL FAILED TO SEND");
+    console.error("\n EMAIL FAILED TO SEND");
     console.error(`Error Code: ${error.code}`);
     console.error(`Error Message: ${error.message}`);
     console.error(`To: ${email}`);

@@ -97,7 +97,7 @@ function ContactForm({ onOpenInbox }) {
           onClick={onOpenInbox}
           className="px-4 py-2 bg-blue-50 text-[#003366] rounded-xl font-bold text-sm hover:bg-blue-100 transition-colors"
         >
-          📥 My Inbox
+           My Inbox
         </button>
       </div>
 

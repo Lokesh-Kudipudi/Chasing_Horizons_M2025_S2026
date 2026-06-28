@@ -1,5 +1,0 @@
-C:\Users\Sneha\Downloads\FDFED-Sem-5\backend\log\20260304-0000-01-access.log.gz
-C:\Users\Sneha\Downloads\FDFED-Sem-5\backend\log\20260305-0007-01-access.log.gz
-C:\Users\Sneha\Downloads\FDFED-Sem-5\backend\log\20260305-0007-01-access.log.gz
-C:\Users\Sneha\Downloads\FDFED-Sem-5\backend\log\20260306-0115-01-access.log.gz
-C:\Users\Sneha\Downloads\FDFED-Sem-5\backend\log\20260307-1416-01-access.log.gz

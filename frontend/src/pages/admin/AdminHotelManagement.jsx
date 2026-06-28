@@ -199,7 +199,7 @@ export default function AdminHotelManagement() {
         {/* Header */}
         <div className="border-b border-gray-100 pb-6">
           <h1 className="text-4xl font-serif font-bold text-[#003366] mb-2 flex items-center gap-3">
-            <span className="bg-blue-50 p-2 rounded-xl text-3xl">🏨</span> Hotel Management
+            <span className="bg-blue-50 p-2 rounded-xl text-3xl"></span> Hotel Management
           </h1>
           <p className="text-gray-500 text-lg">Monitor hotel performance and booking analytics.</p>
         </div>
@@ -394,7 +394,7 @@ export default function AdminHotelManagement() {
           </div>
         ) : (
           <div className="bg-gray-50 rounded-[2rem] p-12 text-center border-2 border-dashed border-gray-200">
-            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">🔍</div>
+            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl"></div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">No hotels found</h3>
             <p className="text-gray-500">Try adjusting your search or filters.</p>
           </div>

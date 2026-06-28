@@ -213,7 +213,7 @@ export default function HotelManagerBookings() {
         {/* Header */}
         <div className="border-b border-gray-100 pb-6">
           <h1 className="text-4xl font-serif font-bold text-[#003366] mb-2 flex items-center gap-3">
-            <span className="bg-blue-50 p-2 rounded-xl text-3xl">📅</span> Hotel Bookings
+            <span className="bg-blue-50 p-2 rounded-xl text-3xl"></span> Hotel Bookings
           </h1>
           <p className="text-gray-500 text-lg">Manage and track all your hotel reservations.</p>
         </div>

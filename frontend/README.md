@@ -2,7 +2,7 @@
 
 This directory contains the client-side application for the Chasing Horizons platform. It delivers a fast, responsive, and dynamic user interface for travelers, hotel managers, tour guides, and administrators.
 
-## 🚀 Tech Stack
+##  Tech Stack
 
 *   **Framework:** React 19
 *   **Build Tool:** Vite compilation for lightning-fast HMR and optimized builds
@@ -17,7 +17,7 @@ This directory contains the client-side application for the Chasing Horizons pla
     *   `react-hot-toast` for elegant, non-blocking notifications
 *   **Utilities:** `react-to-print` for generating printable documents (e.g., invoices)
 
-## 📁 Folder Structure
+##  Folder Structure
 
 ```
 frontend/
@@ -44,7 +44,7 @@ frontend/
         └── ...
 ```
 
-## 🧠 Key Architectural Decisions
+##  Key Architectural Decisions
 
 1.  **Component-Based UI:** The UI is thoroughly broken down into modular components within the `src/components/` directory, promoting reusability and maintainability.
 2.  **Hybrid State Management:**
@@ -54,7 +54,7 @@ frontend/
 4.  **Vite for Performance:** Leveraging Vite ensures rapid development startup times and highly optimized production bundling compared to older tools like Webpack.
 5.  **Tailwind CSS Standardization:** All styling is done via Tailwind classes, ensuring a consistent design system without the overhead of maintaining massive CSS files.
 
-## 🛠️ Setup & Local Development
+## ️ Setup & Local Development
 
 ### Prerequisites
 

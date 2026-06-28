@@ -284,7 +284,7 @@ export default function HotelManagerRooms() {
            <div className="flex justify-between items-end mb-4">
               <div>
                 <h1 className="text-4xl font-serif font-bold text-[#003366] mb-2 flex items-center gap-3">
-                    <span className="bg-blue-50 p-2 rounded-xl text-3xl">🛏️</span> Room Inventory
+                    <span className="bg-blue-50 p-2 rounded-xl text-3xl">️</span> Room Inventory
                 </h1>
                 <p className="text-gray-500 text-lg">Manage room types and individual units.</p>
               </div>

@@ -39,7 +39,7 @@ function BookingsTable({ bookings }) {
   if (!bookings?.length) {
     return (
       <div className="bg-gray-50 rounded-[2rem] p-12 text-center border-2 border-dashed border-gray-200">
-        <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">📅</div>
+        <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl"></div>
         <h3 className="text-xl font-bold text-gray-800 mb-2">No bookings yet</h3>
         <p className="text-gray-500">Bookings will appear here once guests start reserving rooms.</p>
       </div>
@@ -197,7 +197,7 @@ export default function HotelManagerDashboard({ initialBookings = [] }) {
       {/* Header */}
       <div className="border-b border-gray-100 pb-6">
         <h1 className="text-4xl font-serif font-bold text-[#003366] mb-2 flex items-center gap-3">
-          <span className="bg-blue-50 p-2 rounded-xl text-3xl">🏨</span> Dashboard Overview
+          <span className="bg-blue-50 p-2 rounded-xl text-3xl"></span> Dashboard Overview
         </h1>
         <p className="text-gray-500 text-lg">Welcome back! Here's what's happening with your hotel.</p>
       </div>

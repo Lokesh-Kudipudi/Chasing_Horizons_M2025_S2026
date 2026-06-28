@@ -46,6 +46,23 @@ async function getHotelById(hotelId) {
         message: "Invalid Hotel ID",
       };
     }
+
+    const cacheKey = `cache:hotel:${hotelId}`;
+    let cachedData = null;
+    try {
+      cachedData = await redis.get(cacheKey);
+    } catch (redisError) {
+      console.error("Redis Get Error (getHotelById):", redisError.message);
+    }
+
+    if (cachedData) {
+      return {
+        status: "success",
+        data: cachedData,
+        source: "redis"
+      };
+    }
+
     const hotel = await Hotel.findById(hotelId).lean();
     if (!hotel) {
       return {
@@ -63,9 +80,16 @@ async function getHotelById(hotelId) {
       hotel.features = Object.fromEntries(hotel.features);
     }
 
+    try {
+      await redis.set(cacheKey, hotel, { ex: 3600 });
+    } catch (redisError) {
+      console.error("Redis Set Error (getHotelById):", redisError.message);
+    }
+
     return {
       status: "success",
       data: hotel,
+      source: "mongodb"
     };
   } catch (error) {
     return {
@@ -97,6 +121,15 @@ async function updateHotel(hotelId, hotelData) {
     if (!hotel) {
       throw new Error("Hotel not Found!");
     }
+
+    // Invalidate caches
+    try {
+      await redis.del(`cache:hotel:${hotelId}`);
+      await redis.del("cache:hotels:all");
+    } catch (redisError) {
+      console.error("Redis Cache Invalidation Error (updateHotel):", redisError.message);
+    }
+
     return {
       status: "success",
       message: "Hotel updated successfully",
@@ -187,6 +220,15 @@ async function deleteHotel(hotelId) {
     if (!hotel) {
       throw new Error("Hotel not found");
     }
+
+    // Invalidate caches
+    try {
+      await redis.del(`cache:hotel:${hotelId}`);
+      await redis.del("cache:hotels:all");
+    } catch (redisError) {
+      console.error("Redis Cache Invalidation Error (deleteHotel):", redisError.message);
+    }
+
     return {
       status: "success",
       message: "Hotel deleted successfully (soft delete)",

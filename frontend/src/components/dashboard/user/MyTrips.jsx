@@ -180,7 +180,7 @@ const MyTrips = ({ onTripCancel }) => {
 
         {/* Upcoming */}
         <section>
-            <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">🚀 Upcoming Trips <span className="text-sm font-normal text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{upcomingBookings.length}</span></h2>
+            <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2"> Upcoming Trips <span className="text-sm font-normal text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{upcomingBookings.length}</span></h2>
             {upcomingBookings.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {upcomingBookings.map(b => <BookingCard key={b._id} booking={b} isPast={false} />)}
@@ -194,7 +194,7 @@ const MyTrips = ({ onTripCancel }) => {
 
         {/* Past */}
         <section>
-            <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">📜 Pasthistory <span className="text-sm font-normal text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{pastBookings.length}</span></h2>
+            <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2"> Pasthistory <span className="text-sm font-normal text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{pastBookings.length}</span></h2>
              {pastBookings.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {pastBookings.map(b => <BookingCard key={b._id} booking={b} isPast={true} />)}
