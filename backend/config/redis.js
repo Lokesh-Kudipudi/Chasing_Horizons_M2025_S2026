@@ -1,6 +1,21 @@
 const { createClient } = require("redis");
 
-const redisUrl = process.env.REDIS_URL || "redis://localhost:6379";
+let redisUrl = process.env.REDIS_URL;
+
+// Derive the standard TCP Redis URL (rediss://) if Upstash REST variables are provided
+if (!redisUrl && process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
+  const host = process.env.UPSTASH_REDIS_REST_URL
+    .replace("https://", "")
+    .replace("http://", "")
+    .split("/")[0];
+  const port = host.includes(":") ? "" : ":6379";
+  redisUrl = `rediss://default:${process.env.UPSTASH_REDIS_REST_TOKEN}@${host}${port}`;
+}
+
+if (!redisUrl) {
+  redisUrl = "redis://localhost:6379";
+}
+
 const isTls = redisUrl.startsWith("rediss://");
 
 const client = createClient({
